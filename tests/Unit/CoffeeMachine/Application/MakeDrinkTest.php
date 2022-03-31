@@ -4,16 +4,18 @@ namespace GetWith\Tests\Unit\CoffeeMachine\Application;
 
 use PHPUnit\Framework\TestCase;
 use GetWith\CoffeeMachine\Application\MakeDrink;
+use GetWith\CoffeeMachine\Application\MakeDrinkRequest;
 
 class MakeDrinkTest extends TestCase
 {
     /** 
-     * @test
-     * @dataProvider ordersProvider
-     *  */
+    * @test
+    * @dataProvider ordersProvider
+    *  */
     public function should_returns_the_expected_output(string $drinkType, float $money, int $sugars, string $extraHot, string $expectedOutput): void
     {
-        $this->assertSame((new MakeDrink())->execute($drinkType, $money, $sugars, $extraHot), $expectedOutput);
+        $orderRequestDTO = new MakeDrinkRequest($drinkType, $money, $sugars, $extraHot);
+        $this->assertSame((new MakeDrink())->execute($orderRequestDTO), $expectedOutput);
     }
 
     public function ordersProvider(): array
