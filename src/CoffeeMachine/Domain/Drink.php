@@ -20,6 +20,11 @@ class Drink
         return $this->drink;
     }
 
+    public function sugar(): int
+    {
+        return $this->sugar;
+    }
+
     public static function isValidOrder(string $drinkType, float $money, int $sugars): string
     {
         try {
