@@ -14,8 +14,10 @@ class Drink
             $this->drink = new Tea($money);
         } else if ($drinkType === 'coffee') {
             $this->drink = new Coffee($money);
-        } else {
+        } else if ($drinkType === 'chocolate') {
             $this->drink = new Chocolate($money);
+        } else {
+            throw new DrinkInvalidArgument('The drink type should be tea, coffee or chocolate.');
         }
         $this->sugar = $sugars;
         $this->extraHot = $extraHot;

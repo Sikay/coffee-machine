@@ -7,6 +7,7 @@ use GetWith\CoffeeMachine\Domain\Drink;
 use GetWith\CoffeeMachine\Domain\Tea;
 use GetWith\CoffeeMachine\Domain\Coffee;
 use GetWith\CoffeeMachine\Domain\Chocolate;
+use GetWith\CoffeeMachine\Domain\DrinkInvalidArgument;
 
 class DrinkTest extends TestCase
 {
@@ -26,5 +27,12 @@ class DrinkTest extends TestCase
     public function should_create_a_chocolate_drink(): void
     {
         $this->assertInstanceOf(Chocolate::Class, (new Drink('chocolate', 0.6, '1', ''))->drink());
+    }
+
+    /** @test */
+    public function should_fail_to_create_Drink_with_incorrect_parameters(): void
+    {
+        $this->expectException(DrinkInvalidArgument::class);
+        new Drink('milk', 0.1, '1', '');
     }
 }
