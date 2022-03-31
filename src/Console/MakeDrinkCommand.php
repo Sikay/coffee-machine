@@ -50,29 +50,13 @@ class MakeDrinkCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $drinkType = strtolower($input->getArgument('drink-type'));
-        $money = $input->getArgument('money');
-        switch ($drinkType) {
-            case 'tea':
-                if ($money < 0.4) {
-                    $output->writeln('The tea costs 0.4.');
-                    return 0;
-                }
-                break;
-            case 'coffee':
-                if ($money < 0.5) {
-                    $output->writeln('The coffee costs 0.5.');
-                    return 0;
-                }
-                break;
-            case 'chocolate':
-                if ($money < 0.6) {
-                    $output->writeln('The chocolate costs 0.6.');
-                    return 0;
-                }
-                break;
-            default:
-                $output->writeln('The drink type should be tea, coffee or chocolate.');
-                return 0;
+        $money = floatval($input->getArgument('money'));
+
+        $isValidDrinkType = $this->isValidDrinkType($drinkType, $money);
+
+        if (isset($isValidDrinkType) && !empty($isValidDrinkType)) {
+            $output->writeln($isValidDrinkType);
+            return 0;
         }
 
         $sugars = $input->getArgument('sugars');
@@ -94,5 +78,31 @@ class MakeDrinkCommand extends Command
         }
 
         return 0;
+    }
+
+    private function isValidDrinkType(string $drinkType, float $money): string
+    {
+        $response = '';
+        switch ($drinkType) {
+            case 'tea':
+                if ($money < 0.4) {
+                    $response = 'The tea costs 0.4.';
+                }
+                break;
+            case 'coffee':
+                if ($money < 0.5) {
+                    $response = 'The coffee costs 0.5.';
+                }
+                break;
+            case 'chocolate':
+                if ($money < 0.6) {
+                    $response = 'The chocolate costs 0.6.';
+                }
+                break;
+            default:
+                $response = 'The drink type should be tea, coffee or chocolate.';
+        }
+
+        return $response;
     }
 }
