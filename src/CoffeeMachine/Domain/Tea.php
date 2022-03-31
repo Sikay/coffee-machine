@@ -9,13 +9,18 @@ class Tea
 
     public function __construct(float $money)
     {
-        if ($money < self::PRICE) {
-            throw new Exception();
-        }
+        $this->isValidPrice($money);
     }
 
     public function price(): float
     {
         return self::PRICE;
+    }
+
+    private function isValidPrice(float $money): void
+    {
+        if ($money < self::PRICE) {
+            throw new Exception();
+        }
     }
 }
