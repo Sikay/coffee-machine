@@ -2,8 +2,6 @@
 
 namespace GetWith\CoffeeMachine\Domain;
 
-use GetWith\CoffeeMachine\Domain\ChocolateInvalidArgument;
-
 class Chocolate
 {
     private const NAME = 'chocolate';
@@ -11,13 +9,18 @@ class Chocolate
 
     public function __construct(float $money)
     {
-        if ($money < self::PRICE) {
-            throw new Exception('The chocolate costs 0.6.');
-        }
+        $this->isValidPrice($money);
     }
 
     public function price(): float
     {
         return self::PRICE;
+    }
+
+    private function isValidPrice(float $money): void
+    {
+        if ($money < self::PRICE) {
+            throw new ChocolateInvalidArgument('The chocolate costs 0.6.');
+        }
     }
 }
