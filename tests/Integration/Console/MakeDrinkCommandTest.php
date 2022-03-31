@@ -2,7 +2,7 @@
 
 namespace GetWith\Tests\Integration\Console;
 
-use GetWith\Console\MakeDrinkCommand;
+use GetWith\CoffeeMachine\Infrastructure\Console\MakeDrinkCommand;
 use GetWith\Tests\Integration\IntegrationTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
