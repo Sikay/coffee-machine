@@ -52,33 +52,6 @@ class Drink
         }
     }
 
-    private static function isValidTeaPrice(float $money): string
-    {
-        $minimunTeaPrice = 0.4;
-        if ($money < $minimunTeaPrice) {
-            return 'The tea costs 0.4.';
-        }
-        return '';
-    }
-
-    private static function isValidCoffeePrice(float $money): string
-    {
-        $minimunCoffeePrice = 0.5;
-        if ($money < $minimunCoffeePrice) {
-            return 'The coffee costs 0.5.';
-        }
-        return '';
-    }
-
-    private static function isValidChocolatePrice(float $money): string
-    {
-        $minimunChocolatePrice = 0.6;
-        if ($money < $minimunChocolatePrice) {
-            return 'The chocolate costs 0.6.';
-        }
-        return '';
-    }
-
     public static function orderedDrinkMessage(string $drinkType, string $extraHot, int $sugars): string
     {
         $dringTypeMessage = 'You have ordered a ' . $drinkType;
