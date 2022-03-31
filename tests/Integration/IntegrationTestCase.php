@@ -1,6 +1,6 @@
 <?php
 
-namespace GetWith\CoffeeMachine\Tests\Integration;
+namespace GetWith\Tests\Integration;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;

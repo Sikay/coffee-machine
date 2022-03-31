@@ -9,8 +9,8 @@
   "autoload": {
     "psr-4": {
       "GetWith\\": "src",
-      "GetWith\\CoffeeMachine\\Tests\\Unit\\": "tests/Unit",
-      "GetWith\\CoffeeMachine\\Tests\\Integration\\": "tests/Integration"
+      "GetWith\\Tests\\Unit\\": "tests/Unit",
+      "GetWith\\Tests\\Integration\\": "tests/Integration"
     }
   },
   "config": {
