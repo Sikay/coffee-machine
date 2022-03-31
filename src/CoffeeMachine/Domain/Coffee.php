@@ -9,13 +9,18 @@ class Coffee
 
     public function __construct(float $money)
     {
-        if ($money < self::PRICE) {
-            throw new Exception('The coffee costs 0.5.');
-        }
+        $this->isValidPrice($money);
     }
 
     public function price(): float
     {
         return self::PRICE;
+    }
+
+    private function isValidPrice(float $money): void
+    {
+        if ($money < self::PRICE) {
+            throw new CoffeeInvalidArgument('The coffee costs 0.5.');
+        }
     }
 }
