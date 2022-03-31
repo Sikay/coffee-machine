@@ -2,7 +2,7 @@
 
 namespace GetWith\CoffeeMachine\Domain;
 
-class Tea
+class Tea implements Drinkeable
 {
     private const NAME = 'tea';
     private const PRICE = 0.4;
