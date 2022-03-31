@@ -2,7 +2,7 @@
 
 namespace GetWith\CoffeeMachine\Application;
 
-use GetWith\CoffeeMachine\Domain\Drink;
+use GetWith\CoffeeMachine\Domain\DrinkService;
 
 class MakeDrink
 {

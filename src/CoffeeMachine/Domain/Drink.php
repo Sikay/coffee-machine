@@ -11,10 +11,10 @@ class Drink
     private const MINIMUN_AMOUNT_SUGAR = 0;
     private const MAXIMUN_AMOUNT_SUGAR = 2;
 
-    public function __construct(string $drinkType, float $money, int $sugars, string $extraHot)
+    public function __construct(Drinkeable $drink, int $sugars, string $extraHot)
     {
-        $this->drink = FactoryDrink::makeDrink($drinkType, $money);
         self::isValidAmountSugar($sugars);
+        $this->drink = $drink;
         $this->sugar = $sugars;
         $this->extraHot = $extraHot;
     }
