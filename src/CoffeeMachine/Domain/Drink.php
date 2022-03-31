@@ -29,18 +29,6 @@ class Drink
         return $this->sugar;
     }
 
-    public static function isValidOrder(string $drinkType, float $money, int $sugars): string
-    {
-        try {
-            FactoryDrink::makeDrink($drinkType, $money);
-            self::isValidAmountSugar($sugars);
-        } catch (\InvalidArgumentException $exception) {
-            return $exception->getmessage();
-        }
-
-        return '';
-    }
-
     private static function isValidAmountSugar(int $sugars): void
     {
         if ($sugars < self::MINIMUN_AMOUNT_SUGAR || $sugars > self::MAXIMUN_AMOUNT_SUGAR) {
