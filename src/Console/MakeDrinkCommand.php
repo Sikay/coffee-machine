@@ -7,7 +7,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use GetWith\CoffeeMachine\Domain\Drink;
+use GetWith\CoffeeMachine\Application\MakeDrink;
 
 class MakeDrinkCommand extends Command
 {
@@ -55,13 +55,7 @@ class MakeDrinkCommand extends Command
         $sugars = intval($input->getArgument('sugars'));
         $extraHot = $input->getOption('extra-hot');
 
-        $isValidOrder = Drink::isValidOrder($drinkType, $money, $sugars);
-        if (isset($isValidOrder) && !empty($isValidOrder)) {
-            $output->writeln($isValidOrder);
-            return 0;
-        }
-
-        $output->writeln(Drink::orderedDrinkMessage($drinkType, $extraHot, $sugars));
+        $output->writeln((new MakeDrink())->execute($drinkType, $money, $sugars, $extraHot));
 
         return 0;
     }
