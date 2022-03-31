@@ -7,6 +7,13 @@ use GetWith\CoffeeMachine\Application\DataTransformer\DrinkDtoDataTransformer;
 
 class MakeDrink
 {
+    private $drinkDataTransformer;
+
+    public function __construct(DrinkDtoDataTransformer $drinkDataTransformer)
+    {
+        $this->drinkDataTransformer = $drinkDataTransformer;
+    }
+
     public function execute(MakeDrinkRequest $request): string {
         try {  
             $drink = DrinkService::makeDrink(
@@ -16,9 +23,8 @@ class MakeDrink
                 $request->extraHot(),
             );
 
-            $drinkDTO = new DrinkDtoDataTransformer();
-            $drinkDTO->write($drink);
-            return $drinkDTO->read();
+            $this->drinkDataTransformer->write($drink);
+            return $this->drinkDataTransformer->read();
 
         } catch (\InvalidArgumentException $exception) {
             return $exception->getmessage();

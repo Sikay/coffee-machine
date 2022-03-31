@@ -9,6 +9,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use GetWith\CoffeeMachine\Application\MakeDrink;
 use GetWith\CoffeeMachine\Application\MakeDrinkRequest;
+use GetWith\CoffeeMachine\Application\DataTransformer\DrinkDtoDataTransformer;
 
 class MakeDrinkCommand extends Command
 {
@@ -57,8 +58,9 @@ class MakeDrinkCommand extends Command
         $extraHot = $input->getOption('extra-hot');
 
         $orderRequestDTO = new MakeDrinkRequest($drinkType, $money, $sugars, $extraHot);
+        $makeDrink = new MakeDrink(new DrinkDtoDataTransformer());
 
-        $output->writeln((new MakeDrink())->execute($orderRequestDTO));
+        $output->writeln($makeDrink->execute($orderRequestDTO));
 
         return 0;
     }
