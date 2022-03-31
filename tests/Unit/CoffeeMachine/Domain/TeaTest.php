@@ -4,6 +4,7 @@ namespace GetWith\Tests\Unit\CoffeeMachine\Domain;
 
 use PHPUnit\Framework\TestCase;
 use GetWith\CoffeeMachine\Domain\Tea;
+use GetWith\CoffeeMachine\Domain\TeaInvalidArgument;
 use Iterator;
 
 class TeaTest extends TestCase

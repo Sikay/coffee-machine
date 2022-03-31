@@ -20,7 +20,7 @@ class Tea
     private function isValidPrice(float $money): void
     {
         if ($money < self::PRICE) {
-            throw new Exception();
+            throw new TeaInvalidArgument('The tea costs 0.4.');
         }
     }
 }
