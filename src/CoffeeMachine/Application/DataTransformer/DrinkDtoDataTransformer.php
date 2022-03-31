@@ -4,7 +4,7 @@ namespace GetWith\CoffeeMachine\Application\DataTransformer;
 
 use GetWith\CoffeeMachine\Domain\Drink;
 
-class DrinkDtoDataTransformer
+class DrinkDtoDataTransformer implements DrinkDataTransformer
 {
     private $drink;
 

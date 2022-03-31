@@ -3,13 +3,13 @@
 namespace GetWith\CoffeeMachine\Application;
 
 use GetWith\CoffeeMachine\Domain\DrinkService;
-use GetWith\CoffeeMachine\Application\DataTransformer\DrinkDtoDataTransformer;
+use GetWith\CoffeeMachine\Application\DataTransformer\DrinkDataTransformer;
 
 class MakeDrink
 {
     private $drinkDataTransformer;
 
-    public function __construct(DrinkDtoDataTransformer $drinkDataTransformer)
+    public function __construct(DrinkDataTransformer $drinkDataTransformer)
     {
         $this->drinkDataTransformer = $drinkDataTransformer;
     }
