@@ -8,6 +8,9 @@ class Drink
     private $sugar;
     private $extraHot;
 
+    private const MINIMUN_AMOUNT_SUGAR = 0;
+    private const MAXIMUN_AMOUNT_SUGAR = 2;
+
     public function __construct(string $drinkType, float $money, int $sugars, string $extraHot)
     {
         $this->drink = FactoryDrink::makeDrink($drinkType, $money);
@@ -38,17 +41,17 @@ class Drink
         return '';
     }
 
+    private static function isValidAmountSugar(int $sugars): void
+    {
+        if ($sugars < self::MINIMUN_AMOUNT_SUGAR || $sugars > self::MAXIMUN_AMOUNT_SUGAR) {
+            throw new DrinkInvalidArgument('The number of sugars should be between 0 and 2.');
+        }
+    }
+
     public static function orderedDrinkMessage(string $drinkType, string $extraHot, int $sugars): string
     {
         $dringTypeMessage = 'You have ordered a ' . $drinkType;
         return $dringTypeMessage . self::extraHotMessage($extraHot) . self::amountSugarMessage($sugars);;
-    }
-
-    private static function isValidAmountSugar(int $sugars): void
-    {
-        if ($sugars < 0 || $sugars > 2) {
-            throw new DrinkInvalidArgument('The number of sugars should be between 0 and 2.');
-        }
     }
 
     private static function extraHotMessage(string $extraHot): string
@@ -63,7 +66,7 @@ class Drink
     private static function amountSugarMessage(string $sugars): string
     {
         $response = '';
-        if ($sugars > 0) {
+        if ($sugars > self::MINIMUN_AMOUNT_SUGAR) {
             $response = ' with ' . $sugars . ' sugars (stick included)';
         }
         return $response;
