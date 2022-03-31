@@ -4,6 +4,20 @@ namespace GetWith\CoffeeMachine;
 
 class Drink
 {
+    public static function isValidOrder(string $drinkType, float $money, int $sugars): string
+    {
+        $isValidDrinkType = Drink::isValidDrinkType($drinkType, $money);
+        if (isset($isValidDrinkType) && !empty($isValidDrinkType)) {
+            return $isValidDrinkType;
+        }
+
+        if (!Drink::isValidAmountSugar($sugars)) {
+            return 'The number of sugars should be between 0 and 2.';
+        }
+
+        return '';
+    }
+
     public static function isValidDrinkType(string $drinkType, float $money): string
     {
         $response = '';
