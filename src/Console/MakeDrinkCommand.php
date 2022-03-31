@@ -7,6 +7,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use GetWith\CoffeeMachine\Drink;
 
 class MakeDrinkCommand extends Command
 {
@@ -52,7 +53,7 @@ class MakeDrinkCommand extends Command
         $drinkType = strtolower($input->getArgument('drink-type'));
         $money = floatval($input->getArgument('money'));
 
-        $isValidDrinkType = $this->isValidDrinkType($drinkType, $money);
+        $isValidDrinkType = Drink::isValidDrinkType($drinkType, $money);
 
         if (isset($isValidDrinkType) && !empty($isValidDrinkType)) {
             $output->writeln($isValidDrinkType);
@@ -78,52 +79,5 @@ class MakeDrinkCommand extends Command
         }
 
         return 0;
-    }
-
-    private function isValidDrinkType(string $drinkType, float $money): string
-    {
-        $response = '';
-        switch ($drinkType) {
-            case 'tea':
-                $response = $this->isValidTeaPrice($money);
-                break;
-            case 'coffee':
-                $response = $this->isValidCoffeePrice($money);
-                break;
-            case 'chocolate':
-                $response = $this->isValidChocolatePrice($money);
-                break;
-            default:
-                $response = 'The drink type should be tea, coffee or chocolate.';
-        }
-
-        return $response;
-    }
-
-    private function isValidTeaPrice(float $money): string
-    {
-        $minimunTeaPrice = 0.4;
-        if ($money < $minimunTeaPrice) {
-            return 'The tea costs 0.4.';
-        }
-        return '';
-    }
-
-    private function isValidCoffeePrice(float $money): string
-    {
-        $minimunCoffeePrice = 0.5;
-        if ($money < $minimunCoffeePrice) {
-            return 'The coffee costs 0.5.';
-        }
-        return '';
-    }
-
-    private function isValidChocolatePrice(float $money): string
-    {
-        $minimunChocolatePrice = 0.6;
-        if ($money < $minimunChocolatePrice) {
-            return 'The chocolate costs 0.6.';
-        }
-        return '';
     }
 }
