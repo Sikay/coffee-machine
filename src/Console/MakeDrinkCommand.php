@@ -62,45 +62,13 @@ class MakeDrinkCommand extends Command
 
         $sugars = intval($input->getArgument('sugars'));
         $extraHot = $input->getOption('extra-hot');
-        if (!self::isValidAmountSugar($sugars)) {
+        if (!Drink::isValidAmountSugar($sugars)) {
             $output->writeln('The number of sugars should be between 0 and 2.');
             return 0;
         }
 
-        $output->writeln(self::orderedDrinkMessage($drinkType, $extraHot, $sugars));
+        $output->writeln(Drink::orderedDrinkMessage($drinkType, $extraHot, $sugars));
 
         return 0;
-    }
-
-    private static function orderedDrinkMessage(string $drinkType, string $extraHot, int $sugars): string
-    {
-        $dringTypeMessage = 'You have ordered a ' . $drinkType;
-        return $dringTypeMessage . self::extraHotMessage($extraHot) . self::amountSugarMessage($sugars);;
-    }
-
-    private static function isValidAmountSugar(int $sugars): bool
-    {
-        if ($sugars >= 0 && $sugars <= 2) {
-            return true;
-        }
-        return false;
-    }
-
-    private static function extraHotMessage(string $extraHot): string
-    {
-        $response = ''; 
-        if ($extraHot) {
-            $response = ' extra hot';
-        }
-        return $response;
-    }
-
-    private static function amountSugarMessage(string $sugars): string
-    {
-        $response = '';
-        if ($sugars > 0) {
-            $response = ' with ' . $sugars . ' sugars (stick included)';
-        }
-        return $response;
     }
 }

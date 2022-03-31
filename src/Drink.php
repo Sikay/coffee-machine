@@ -50,4 +50,36 @@ class Drink
         }
         return '';
     }
+
+    public static function orderedDrinkMessage(string $drinkType, string $extraHot, int $sugars): string
+    {
+        $dringTypeMessage = 'You have ordered a ' . $drinkType;
+        return $dringTypeMessage . self::extraHotMessage($extraHot) . self::amountSugarMessage($sugars);;
+    }
+
+    public static function isValidAmountSugar(int $sugars): bool
+    {
+        if ($sugars >= 0 && $sugars <= 2) {
+            return true;
+        }
+        return false;
+    }
+
+    private static function extraHotMessage(string $extraHot): string
+    {
+        $response = ''; 
+        if ($extraHot) {
+            $response = ' extra hot';
+        }
+        return $response;
+    }
+
+    private static function amountSugarMessage(string $sugars): string
+    {
+        $response = '';
+        if ($sugars > 0) {
+            $response = ' with ' . $sugars . ' sugars (stick included)';
+        }
+        return $response;
+    }
 }
