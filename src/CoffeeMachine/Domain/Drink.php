@@ -10,7 +10,7 @@ class Drink
 
     public function __construct(string $drinkType, float $money, int $sugars, string $extraHot)
     {
-        $this->drink = self::isValidDrinkType($drinkType, $money);
+        $this->drink = FactoryDrink::makeDrink($drinkType, $money);
         $this->sugar = $sugars;
         $this->extraHot = $extraHot;
     }
@@ -23,7 +23,7 @@ class Drink
     public static function isValidOrder(string $drinkType, float $money, int $sugars): string
     {
         try {
-            self::isValidDrinkType($drinkType, $money);
+            FactoryDrink::makeDrink($drinkType, $money);
         } catch (\InvalidArgumentException $exception) {
             return $exception->getmessage();
         }
@@ -33,23 +33,6 @@ class Drink
         }
 
         return '';
-    }
-
-    private static function isValidDrinkType(string $drinkType, float $money): Drinkeable
-    {
-        switch ($drinkType) {
-            case 'tea':
-                return new Tea($money);
-
-            case 'coffee':
-                return new Coffee($money);
-
-            case 'chocolate':
-                return new Chocolate($money);
-
-            default:
-                throw new DrinkInvalidArgument('The drink type should be tea, coffee or chocolate.');
-        }
     }
 
     public static function orderedDrinkMessage(string $drinkType, string $extraHot, int $sugars): string
