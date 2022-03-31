@@ -43,4 +43,10 @@ class CoffeeTest extends TestCase
         $this->expectException(CoffeeInvalidArgument::class);
         new Coffee($money);
     }
+
+    /** @test */
+    public function should_create_coffee_and_return_its_correct_name(): void
+    {
+        $this->assertSame((new Coffee(0.5))->name(), 'coffee');
+    }
 }
