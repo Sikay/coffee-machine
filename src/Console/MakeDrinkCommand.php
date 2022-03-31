@@ -61,7 +61,6 @@ class MakeDrinkCommand extends Command
         }
 
         $sugars = intval($input->getArgument('sugars'));
-        $stick = false;
         $extraHot = $input->getOption('extra-hot');
         if (!self::isValidAmountSugar($sugars)) {
             $output->writeln('The number of sugars should be between 0 and 2.');
