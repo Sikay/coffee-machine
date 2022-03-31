@@ -17,6 +17,11 @@ class Tea
         return self::PRICE;
     }
 
+    public function name(): string
+    {
+        return self::NAME;
+    }
+
     private function isValidPrice(float $money): void
     {
         if ($money < self::PRICE) {

@@ -42,4 +42,10 @@ class TeaTest extends TestCase
         $this->expectException(TeaInvalidArgument::class);
         new Tea($money);
     }
+
+    /** @test */
+    public function should_create_tea_and_return_its_correct_name(): void
+    {
+        $this->assertSame((new Tea(0.4))->name(), 'tea');
+    }
 }
