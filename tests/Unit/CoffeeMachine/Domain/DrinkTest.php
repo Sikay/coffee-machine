@@ -37,8 +37,20 @@ class DrinkTest extends TestCase
     }
 
     /** @test */
-    public function should_create_a_drink_with_correct_amount_of_sugars(): void
+    public function should_create_a_drink_with_zero_sugars(): void
     {
         $this->assertTrue((new Drink('chocolate', 0.6, '0', ''))->sugar() === 0);
+    }
+
+    /** @test */
+    public function should_create_a_drink_with_one_sugars(): void
+    {
+        $this->assertTrue((new Drink('coffee', 0.9, '1', ''))->sugar() === 1);
+    }
+
+    /** @test */
+    public function should_create_a_drink_with_two_sugars(): void
+    {
+        $this->assertTrue((new Drink('tea', 0.7, '2', ''))->sugar() === 2);
     }
 }
