@@ -38,29 +38,46 @@ class MakeDrinkTest extends TestCase
             [
                 'coffee', 2, 2, '1', 'You have ordered a coffee extra hot with 2 sugars (stick included)',
             ],
+        ];
+    }
+
+    /** 
+     * @test
+     * @dataProvider notValidOrdersProvider
+     *  */
+    public function should_fail_to_make_drink_and_returns_exception(string $drinkType, float $money, int $sugars, string $extraHot): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $orderRequest = new MakeDrinkRequest($drinkType, $money, $sugars, $extraHot);
+        $this->makeDrink->execute($orderRequest);
+    }
+
+    public function notValidOrdersProvider(): array
+    {
+        return [
             [
-                'coffee', 0.2, 2, '1', 'The coffee costs 0.5.',
+                'coffee', 0.2, 2, '1',
             ],
             [
-                'chocolate', 0.3, 2, '1', 'The chocolate costs 0.6.',
+                'chocolate', 0.3, 2, '1',
             ],
             [
-                'tea', 0.1, 2, '1', 'The tea costs 0.4.',
+                'tea', 0.1, 2, '1',
             ],
             [
-                'tea', 0.5, -1, '1', 'The number of sugars should be between 0 and 2.',
+                'tea', 0.5, -1, '1',
             ],
             [
-                'tea', 0.5, 3, '1', 'The number of sugars should be between 0 and 2.',
+                'tea', 0.5, 3, '1',
             ],
             [
-                'milk', 0.5, 1, '1', 'The drink type should be tea, coffee or chocolate.',
+                'milk', 0.5, 1, '1',
             ],
             [
-                'milk', 0.8, -1, '', 'The drink type should be tea, coffee or chocolate.',
+                'milk', 0.8, -1, '',
             ],
             [
-                '', 0, 0, '', 'The drink type should be tea, coffee or chocolate.',
+                '', 0, 0, '',
             ],
         ];
     }

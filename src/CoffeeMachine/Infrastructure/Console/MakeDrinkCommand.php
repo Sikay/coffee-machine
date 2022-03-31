@@ -60,7 +60,11 @@ class MakeDrinkCommand extends Command
         $orderRequestDTO = new MakeDrinkRequest($drinkType, $money, $sugars, $extraHot);
         $makeDrink = new MakeDrink(new DrinkDtoDataTransformer());
 
-        $output->writeln($makeDrink->execute($orderRequestDTO));
+        try {  
+            $output->writeln($makeDrink->execute($orderRequestDTO));
+        } catch (\InvalidArgumentException $exception) {
+            $output->writeln($exception->getmessage());
+        }
 
         return 0;
     }

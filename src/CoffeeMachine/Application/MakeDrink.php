@@ -14,20 +14,15 @@ class MakeDrink
         $this->drinkDataTransformer = $drinkDataTransformer;
     }
 
-    public function execute(MakeDrinkRequest $request): string {
-        try {  
-            $drink = DrinkService::makeDrink(
-                $request->drink(),
-                $request->money(),
-                $request->sugar(),
-                $request->extraHot(),
-            );
+    public function execute(MakeDrinkRequest $request): string { 
+        $drink = DrinkService::makeDrink(
+            $request->drink(),
+            $request->money(),
+            $request->sugar(),
+            $request->extraHot(),
+        );
 
-            $this->drinkDataTransformer->write($drink);
-            return $this->drinkDataTransformer->read();
-
-        } catch (\InvalidArgumentException $exception) {
-            return $exception->getmessage();
-        }
+        $this->drinkDataTransformer->write($drink);
+        return $this->drinkDataTransformer->read();
     }
 }
