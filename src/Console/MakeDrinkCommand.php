@@ -85,24 +85,45 @@ class MakeDrinkCommand extends Command
         $response = '';
         switch ($drinkType) {
             case 'tea':
-                if ($money < 0.4) {
-                    $response = 'The tea costs 0.4.';
-                }
+                $response = $this->isValidTeaPrice($money);
                 break;
             case 'coffee':
-                if ($money < 0.5) {
-                    $response = 'The coffee costs 0.5.';
-                }
+                $response = $this->isValidCoffeePrice($money);
                 break;
             case 'chocolate':
-                if ($money < 0.6) {
-                    $response = 'The chocolate costs 0.6.';
-                }
+                $response = $this->isValidChocolatePrice($money);
                 break;
             default:
                 $response = 'The drink type should be tea, coffee or chocolate.';
         }
 
         return $response;
+    }
+
+    private function isValidTeaPrice(float $money): string
+    {
+        $minimunTeaPrice = 0.4;
+        if ($money < $minimunTeaPrice) {
+            return 'The tea costs 0.4.';
+        }
+        return '';
+    }
+
+    private function isValidCoffeePrice(float $money): string
+    {
+        $minimunCoffeePrice = 0.5;
+        if ($money < $minimunCoffeePrice) {
+            return 'The coffee costs 0.5.';
+        }
+        return '';
+    }
+
+    private function isValidChocolatePrice(float $money): string
+    {
+        $minimunChocolatePrice = 0.6;
+        if ($money < $minimunChocolatePrice) {
+            return 'The chocolate costs 0.6.';
+        }
+        return '';
     }
 }
