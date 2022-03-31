@@ -46,4 +46,21 @@ class TeaTest extends TestCase
         $this->expectException(TeaInvalidArgument::class);
         new Tea(0);
     }
+
+    public function invalidPriceProvider(): iterator
+    {
+        yield "zero point three" => [0.3];
+        yield "minus one point nine" => [-1.9];
+        yield "zero" => [0];
+    }
+
+    /** 
+    * @test 
+    * @dataProvider invalidPriceProvider
+    */
+    public function should_fail_to_create_tea_with_money_less_than_minimun_price_required(float $money): void
+    {
+        $this->expectException(TeaInvalidArgument::class);
+        new Tea($money);
+    }
 }
