@@ -4,14 +4,16 @@ namespace GetWith\CoffeeMachine\Domain;
 
 class FactoryDrink
 {
-    public static function makeDrink(string $drinkType, float $money): drinkeable
+    public static function makeDrink(string $drinkType, float $money, int $sugars, string $extraHot): Drink
     {
-        $drinks = include 'DrinkType.php';
+        $allDrinks = include 'DrinkType.php';
 
-        if (!array_key_exists($drinkType, $drinks)) {
+        if (!array_key_exists($drinkType, $allDrinks)) {
             throw new DrinkInvalidArgument('The drink type should be tea, coffee or chocolate.');
         }
         
-        return new $drinks[$drinkType]($money);
+        $drink = new $allDrinks[$drinkType]($money);
+
+        return new Drink($drink, $sugars, $extraHot);
     }
 }
