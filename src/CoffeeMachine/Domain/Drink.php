@@ -28,7 +28,7 @@ class Drink
             return $exception->getmessage();
         }
 
-        if (!Drink::isValidAmountSugar($sugars)) {
+        if (!self::isValidAmountSugar($sugars)) {
             return 'The number of sugars should be between 0 and 2.';
         }
 
