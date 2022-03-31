@@ -69,9 +69,7 @@ class MakeDrinkCommand extends Command
         }
 
         $output->write('You have ordered a ' . $drinkType);
-        if ($extraHot) {
-            $output->write(' extra hot');
-        }
+        $output->write(self::extraHotMessage($extraHot));
 
         if ($sugars > 0) {
             $stick = true;
@@ -88,5 +86,14 @@ class MakeDrinkCommand extends Command
             return true;
         }
         return false;
+    }
+
+    private static function extraHotMessage(string $extraHot): string
+    {
+        $response = ''; 
+        if ($extraHot) {
+            $response = ' extra hot';
+        }
+        return $response;
     }
 }
