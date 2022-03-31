@@ -3,6 +3,7 @@
 namespace GetWith\Tests\Unit\CoffeeMachine\Domain;
 
 use PHPUnit\Framework\TestCase;
+use GetWith\CoffeeMachine\Domain\Tea;
 
 class TeaTest extends TestCase
 {
