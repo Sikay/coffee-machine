@@ -12,8 +12,10 @@ class Drink
     {
         if ($drinkType === 'tea') {
             $this->drink = new Tea($money);
-        } else {
+        } else if ($drinkType === 'coffee') {
             $this->drink = new Coffee($money);
+        } else {
+            $this->drink = new Chocolate($money);
         }
         $this->sugar = $sugars;
         $this->extraHot = $extraHot;
