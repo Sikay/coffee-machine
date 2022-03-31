@@ -60,4 +60,11 @@ class DrinkTest extends TestCase
         $this->expectException(DrinkInvalidArgument::class);
         new Drink('tea', 0.4, '3', '');
     }
+
+    /** @test */
+    public function should_fail_to_create_a_drink_with_minus_one_sugars(): void
+    {
+        $this->expectException(DrinkInvalidArgument::class);
+        new Drink('tea', 0.4, '-1', '');
+    }
 }

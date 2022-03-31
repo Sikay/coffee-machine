@@ -11,10 +11,7 @@ class Drink
     public function __construct(string $drinkType, float $money, int $sugars, string $extraHot)
     {
         $this->drink = FactoryDrink::makeDrink($drinkType, $money);
-        if (!self::isValidAmountSugar($sugars))
-        {
-            throw new DrinkInvalidArgument('The number of sugars should be between 0 and 2.');
-        }
+        self::isValidAmountSugar($sugars);
         $this->sugar = $sugars;
         $this->extraHot = $extraHot;
     }
@@ -33,12 +30,9 @@ class Drink
     {
         try {
             FactoryDrink::makeDrink($drinkType, $money);
+            self::isValidAmountSugar($sugars);
         } catch (\InvalidArgumentException $exception) {
             return $exception->getmessage();
-        }
-
-        if (!self::isValidAmountSugar($sugars)) {
-            return 'The number of sugars should be between 0 and 2.';
         }
 
         return '';
@@ -50,12 +44,11 @@ class Drink
         return $dringTypeMessage . self::extraHotMessage($extraHot) . self::amountSugarMessage($sugars);;
     }
 
-    public static function isValidAmountSugar(int $sugars): bool
+    private static function isValidAmountSugar(int $sugars): void
     {
-        if ($sugars >= 0 && $sugars <= 2) {
-            return true;
+        if ($sugars < 0 || $sugars > 2) {
+            throw new DrinkInvalidArgument('The number of sugars should be between 0 and 2.');
         }
-        return false;
     }
 
     private static function extraHotMessage(string $extraHot): string
