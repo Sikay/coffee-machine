@@ -10,7 +10,11 @@ class Drink
 
     public function __construct(string $drinkType, float $money, int $sugars, string $extraHot)
     {
-        $this->drink = new Tea($money);
+        if ($drinkType === 'tea') {
+            $this->drink = new Tea($money);
+        } else {
+            $this->drink = new Coffee($money);
+        }
         $this->sugar = $sugars;
         $this->extraHot = $extraHot;
     }
@@ -19,7 +23,7 @@ class Drink
     {
         return $this->drink;
     }
-    
+
     public static function isValidOrder(string $drinkType, float $money, int $sugars): string
     {
         $isValidDrinkType = Drink::isValidDrinkType($drinkType, $money);
