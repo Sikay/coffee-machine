@@ -24,4 +24,11 @@ class TeaTest extends TestCase
     {
         $this->assertTrue((new Tea($money))->price() <= $money);
     }
+
+    /** @test */
+    public function should_fail_to_create_tea_with_money_less_than_minimun_price(): void
+    {
+        $this->expectException(TeaInvalidArgument::class);
+        new Tea(0.3);
+    }
 }
