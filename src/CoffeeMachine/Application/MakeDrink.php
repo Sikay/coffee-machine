@@ -8,13 +8,12 @@ class MakeDrink
 {
     public function execute(MakeDrinkRequest $request): string {
         try {  
-            $drink = new Drink(
+            return DrinkService::makeDrink(
                 $request->drink(),
                 $request->money(),
                 $request->sugar(),
                 $request->extraHot(),
-            );
-            return $drink->order();
+            )->order();
         } catch (\InvalidArgumentException $exception) {
             return $exception->getmessage();
         }
