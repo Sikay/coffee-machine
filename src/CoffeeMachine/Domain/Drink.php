@@ -4,6 +4,22 @@ namespace GetWith\CoffeeMachine\Domain;
 
 class Drink
 {
+    private $drink;
+    private $sugar;
+    private $extraHot;
+
+    public function __construct(string $drinkType, float $money, int $sugars, string $extraHot)
+    {
+        $this->drink = new Tea($money);
+        $this->sugar = $sugars;
+        $this->extraHot = $extraHot;
+    }
+
+    public function drink(): Drinkeable
+    {
+        return $this->drink;
+    }
+    
     public static function isValidOrder(string $drinkType, float $money, int $sugars): string
     {
         $isValidDrinkType = Drink::isValidDrinkType($drinkType, $money);
