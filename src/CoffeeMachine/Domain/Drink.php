@@ -11,6 +11,10 @@ class Drink
     public function __construct(string $drinkType, float $money, int $sugars, string $extraHot)
     {
         $this->drink = FactoryDrink::makeDrink($drinkType, $money);
+        if (!self::isValidAmountSugar($sugars))
+        {
+            throw new DrinkInvalidArgument('The number of sugars should be between 0 and 2.');
+        }
         $this->sugar = $sugars;
         $this->extraHot = $extraHot;
     }

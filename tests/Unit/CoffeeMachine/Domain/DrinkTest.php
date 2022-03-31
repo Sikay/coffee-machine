@@ -53,4 +53,11 @@ class DrinkTest extends TestCase
     {
         $this->assertTrue((new Drink('tea', 0.7, '2', ''))->sugar() === 2);
     }
+
+    /** @test */
+    public function should_fail_to_create_a_drink_with_three_sugars(): void
+    {
+        $this->expectException(DrinkInvalidArgument::class);
+        new Drink('tea', 0.4, '3', '');
+    }
 }
