@@ -44,4 +44,10 @@ class ChocolateTest extends TestCase
         $this->expectException(ChocolateInvalidArgument::class);
         new Chocolate($money);
     }
+
+    /** @test */
+    public function should_create_chocolate_and_return_its_correct_name(): void
+    {
+        $this->assertSame((new Chocolate(0.6))->name(), 'chocolate');
+    }
 }
