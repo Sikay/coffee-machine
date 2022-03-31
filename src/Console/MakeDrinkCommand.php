@@ -70,12 +70,7 @@ class MakeDrinkCommand extends Command
 
         $output->write('You have ordered a ' . $drinkType);
         $output->write(self::extraHotMessage($extraHot));
-
-        if ($sugars > 0) {
-            $stick = true;
-            $output->write(' with ' . $sugars . ' sugars (stick included)');
-        }
-        $output->writeln('');
+        $output->writeln(self::amountSugarMessage($sugars));
 
         return 0;
     }
@@ -93,6 +88,15 @@ class MakeDrinkCommand extends Command
         $response = ''; 
         if ($extraHot) {
             $response = ' extra hot';
+        }
+        return $response;
+    }
+
+    private static function amountSugarMessage(string $sugars): string
+    {
+        $response = '';
+        if ($sugars > 0) {
+            $response = ' with ' . $sugars . ' sugars (stick included)';
         }
         return $response;
     }
