@@ -1,13 +1,13 @@
 <?php
 
-namespace GetWith\CoffeeMachine\Console;
+namespace GetWith\Console;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use GetWith\CoffeeMachine\Drink;
+use GetWith\CoffeeMachine\Domain\Drink;
 
 class MakeDrinkCommand extends Command
 {

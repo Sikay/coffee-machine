@@ -1,6 +1,6 @@
 <?php
 
-namespace GetWith\CoffeeMachine;
+namespace GetWith\CoffeeMachine\Domain;
 
 class Drink
 {
