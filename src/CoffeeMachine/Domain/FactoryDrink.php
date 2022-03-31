@@ -6,18 +6,16 @@ class FactoryDrink
 {
     public static function makeDrink(string $drinkType, float $money): drinkeable
     {
-        switch ($drinkType) {
-            case 'tea':
-                return new Tea($money);
+        $drinks = [
+            'tea'       => Tea::class,
+            'coffee'    => Coffee::class,
+            'chocolate' => Chocolate::class
+        ];
 
-            case 'coffee':
-                return new Coffee($money);
-
-            case 'chocolate':
-                return new Chocolate($money);
-
-            default:
-                throw new DrinkInvalidArgument('The drink type should be tea, coffee or chocolate.');
+        if (!array_key_exists($drinkType, $drinks)) {
+            throw new DrinkInvalidArgument('The drink type should be tea, coffee or chocolate.');
         }
+        
+        return new $drinks[$drinkType]($money);
     }
 }
