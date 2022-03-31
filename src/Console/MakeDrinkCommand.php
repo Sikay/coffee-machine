@@ -52,23 +52,31 @@ class MakeDrinkCommand extends Command
     {
         $drinkType = strtolower($input->getArgument('drink-type'));
         $money = floatval($input->getArgument('money'));
-
-        $isValidDrinkType = Drink::isValidDrinkType($drinkType, $money);
-
-        if (isset($isValidDrinkType) && !empty($isValidDrinkType)) {
-            $output->writeln($isValidDrinkType);
-            return 0;
-        }
-
         $sugars = intval($input->getArgument('sugars'));
         $extraHot = $input->getOption('extra-hot');
-        if (!Drink::isValidAmountSugar($sugars)) {
-            $output->writeln('The number of sugars should be between 0 and 2.');
+        
+        $isValidOrder = self::isValidOrder($drinkType, $money, $sugars);
+        if (isset($isValidOrder) && !empty($isValidOrder)) {
+            $output->writeln($isValidOrder);
             return 0;
         }
 
         $output->writeln(Drink::orderedDrinkMessage($drinkType, $extraHot, $sugars));
 
         return 0;
+    }
+
+    private static function isValidOrder(string $drinkType, float $money, int $sugars): string
+    {
+        $isValidDrinkType = Drink::isValidDrinkType($drinkType, $money);
+        if (isset($isValidDrinkType) && !empty($isValidDrinkType)) {
+            return $isValidDrinkType;
+        }
+
+        if (!Drink::isValidAmountSugar($sugars)) {
+            return 'The number of sugars should be between 0 and 2.';
+        }
+
+        return '';
     }
 }
