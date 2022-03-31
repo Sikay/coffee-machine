@@ -10,15 +10,7 @@ class Drink
 
     public function __construct(string $drinkType, float $money, int $sugars, string $extraHot)
     {
-        if ($drinkType === 'tea') {
-            $this->drink = new Tea($money);
-        } else if ($drinkType === 'coffee') {
-            $this->drink = new Coffee($money);
-        } else if ($drinkType === 'chocolate') {
-            $this->drink = new Chocolate($money);
-        } else {
-            throw new DrinkInvalidArgument('The drink type should be tea, coffee or chocolate.');
-        }
+        $this->drink = self::isValidDrinkType($drinkType, $money);
         $this->sugar = $sugars;
         $this->extraHot = $extraHot;
     }
@@ -30,9 +22,10 @@ class Drink
 
     public static function isValidOrder(string $drinkType, float $money, int $sugars): string
     {
-        $isValidDrinkType = Drink::isValidDrinkType($drinkType, $money);
-        if (isset($isValidDrinkType) && !empty($isValidDrinkType)) {
-            return $isValidDrinkType;
+        try {
+            self::isValidDrinkType($drinkType, $money);
+        } catch (\InvalidArgumentException $exception) {
+            return $exception->getmessage();
         }
 
         if (!Drink::isValidAmountSugar($sugars)) {
@@ -42,24 +35,21 @@ class Drink
         return '';
     }
 
-    public static function isValidDrinkType(string $drinkType, float $money): string
+    private static function isValidDrinkType(string $drinkType, float $money): Drinkeable
     {
-        $response = '';
         switch ($drinkType) {
             case 'tea':
-                $response = self::isValidTeaPrice($money);
-                break;
-            case 'coffee':
-                $response = self::isValidCoffeePrice($money);
-                break;
-            case 'chocolate':
-                $response = self::isValidChocolatePrice($money);
-                break;
-            default:
-                $response = 'The drink type should be tea, coffee or chocolate.';
-        }
+                return new Tea($money);
 
-        return $response;
+            case 'coffee':
+                return new Coffee($money);
+
+            case 'chocolate':
+                return new Chocolate($money);
+
+            default:
+                throw new DrinkInvalidArgument('The drink type should be tea, coffee or chocolate.');
+        }
     }
 
     private static function isValidTeaPrice(float $money): string
