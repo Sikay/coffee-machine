@@ -6,11 +6,7 @@ class FactoryDrink
 {
     public static function makeDrink(string $drinkType, float $money): drinkeable
     {
-        $drinks = [
-            'tea'       => Tea::class,
-            'coffee'    => Coffee::class,
-            'chocolate' => Chocolate::class
-        ];
+        $drinks = include 'DrinkType.php';
 
         if (!array_key_exists($drinkType, $drinks)) {
             throw new DrinkInvalidArgument('The drink type should be tea, coffee or chocolate.');
