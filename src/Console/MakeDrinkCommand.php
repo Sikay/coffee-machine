@@ -68,11 +68,15 @@ class MakeDrinkCommand extends Command
             return 0;
         }
 
-        $output->write('You have ordered a ' . $drinkType);
-        $output->write(self::extraHotMessage($extraHot));
-        $output->writeln(self::amountSugarMessage($sugars));
+        $output->writeln(self::orderedDrinkMessage($drinkType, $extraHot, $sugars));
 
         return 0;
+    }
+
+    private static function orderedDrinkMessage(string $drinkType, string $extraHot, int $sugars): string
+    {
+        $dringTypeMessage = 'You have ordered a ' . $drinkType;
+        return $dringTypeMessage . self::extraHotMessage($extraHot) . self::amountSugarMessage($sugars);;
     }
 
     private static function isValidAmountSugar(int $sugars): bool
