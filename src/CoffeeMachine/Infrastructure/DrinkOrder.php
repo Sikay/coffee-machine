@@ -7,7 +7,7 @@ use GetWith\CoffeeMachine\Application\MakeDrink;
 use GetWith\CoffeeMachine\Application\MakeDrinkRequest;
 use GetWith\CoffeeMachine\Application\DataTransformer\DrinkDtoDataTransformer;
 
-class DrinkOrder
+class DrinkOrder implements CommandInterface
 {
     private const COMMAND = 'app:order-drink';
 

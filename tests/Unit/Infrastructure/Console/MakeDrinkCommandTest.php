@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use GetWith\CoffeeMachine\Infrastructure\Console\MakeDrinkCommand;
-use GetWith\CoffeeMachine\Infrastructure\DrinkOrder;
+use GetWith\CoffeeMachine\Infrastructure\CommandInterface;
 
 class MakeDrinkCommandTest extends TestCase
 {
@@ -17,7 +17,7 @@ class MakeDrinkCommandTest extends TestCase
     {
         parent::setUp();
         
-        $this->commandImplementMock = $this->getMockBuilder(DrinkOrder::class)->getMock();
+        $this->commandImplementMock = $this->getMockBuilder(CommandInterface::class)->getMock();
         $this->commandImplementMock
             ->method('command')
             ->willReturn('fake-command');

@@ -7,13 +7,13 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use GetWith\CoffeeMachine\Infrastructure\DrinkOrder;
+use GetWith\CoffeeMachine\Infrastructure\CommandInterface;
 
 class MakeDrinkCommand extends Command
 {
     private $commandImplement;
 
-    public function __construct(DrinkOrder $commandImplement)
+    public function __construct(CommandInterface $commandImplement)
     {
         $this->commandImplement = $commandImplement;
         parent::__construct($commandImplement->command());
