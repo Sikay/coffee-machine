@@ -3,7 +3,7 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
-use GetWith\CoffeeMachine\Console\BaseCommand;
+use GetWith\CoffeeMachine\Infrastructure\Console\BaseCommand;
 use Symfony\Component\Console\Application;
 use GetWith\CoffeeMachine\Infrastructure\DrinkOrder;
 
