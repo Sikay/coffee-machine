@@ -3,13 +3,11 @@
 namespace GetWith\CoffeeMachine\Infrastructure\Console;
 
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use GetWith\CoffeeMachine\Infrastructure\CommandInterface;
 
-class MakeDrinkCommand extends Command
+class BaseCommand extends Command
 {
     private $commandImplement;
     private const INPUT_ARGUMENT_SYMFONY_CLASS = 'Symfony\Component\Console\Input\InputArgument::';

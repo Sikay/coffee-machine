@@ -2,7 +2,7 @@
 
 namespace GetWith\Tests\Integration\Console;
 
-use GetWith\CoffeeMachine\Infrastructure\Console\MakeDrinkCommand;
+use GetWith\CoffeeMachine\Infrastructure\Console\BaseCommand;
 use GetWith\CoffeeMachine\Infrastructure\DrinkOrder;
 use GetWith\Tests\Integration\IntegrationTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -13,7 +13,7 @@ class MakeDrinkCommandTest extends IntegrationTestCase
     {
         parent::setUp();
 
-        $this->application->add(new MakeDrinkCommand(new DrinkOrder()));
+        $this->application->add(new BaseCommand(new DrinkOrder()));
     }
 
     /**

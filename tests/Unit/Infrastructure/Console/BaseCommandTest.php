@@ -5,10 +5,10 @@ namespace GetWith\Tests\Unit\Console;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
-use GetWith\CoffeeMachine\Infrastructure\Console\MakeDrinkCommand;
+use GetWith\CoffeeMachine\Infrastructure\Console\BaseCommand;
 use GetWith\CoffeeMachine\Infrastructure\CommandInterface;
 
-class MakeDrinkCommandTest extends TestCase
+class BaseCommandTest extends TestCase
 {
     private $commandImplementMock;
     private $commandTester;
@@ -23,7 +23,7 @@ class MakeDrinkCommandTest extends TestCase
             ->willReturn('fake-command');
 
         $application = new Application();
-        $application->add(new MakeDrinkCommand($this->commandImplementMock));
+        $application->add(new BaseCommand($this->commandImplementMock));
 
         $command = $application->find('fake-command');
         $this->commandTester = new CommandTester($command);
