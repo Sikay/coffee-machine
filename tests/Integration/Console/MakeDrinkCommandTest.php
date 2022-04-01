@@ -1,9 +1,10 @@
 <?php
 
-namespace GetWith\CoffeeMachine\Tests\Integration\Console;
+namespace GetWith\Tests\Integration\Console;
 
-use GetWith\CoffeeMachine\Console\MakeDrinkCommand;
-use GetWith\CoffeeMachine\Tests\Integration\IntegrationTestCase;
+use GetWith\CoffeeMachine\Infrastructure\Console\BaseCommand;
+use GetWith\CoffeeMachine\Infrastructure\DrinkOrder;
+use GetWith\Tests\Integration\IntegrationTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
 class MakeDrinkCommandTest extends IntegrationTestCase
@@ -12,7 +13,7 @@ class MakeDrinkCommandTest extends IntegrationTestCase
     {
         parent::setUp();
 
-        $this->application->add(new MakeDrinkCommand());
+        $this->application->add(new BaseCommand(new DrinkOrder()));
     }
 
     /**
@@ -23,7 +24,7 @@ class MakeDrinkCommandTest extends IntegrationTestCase
      * @param string $extraHot
      * @param string $expectedOutput
      */
-    public function testCoffeeMachineReturnsTheExpectedOutput(
+    public function test_coffee_machine_returns_the_expected_output(
         string $drinkType,
         string $money,
         int $sugars,
@@ -73,6 +74,15 @@ class MakeDrinkCommandTest extends IntegrationTestCase
             ],
             [
                 'tea', '0.5', 3, '1', 'The number of sugars should be between 0 and 2.' . PHP_EOL
+            ],
+            [
+                'milk', '0.5', 1, '1', 'The drink type should be tea, coffee or chocolate.' . PHP_EOL
+            ],
+            [
+                'milk', '0.8', -1, '', 'The drink type should be tea, coffee or chocolate.' . PHP_EOL
+            ],
+            [
+                '', '', 0, '', 'The drink type should be tea, coffee or chocolate.' . PHP_EOL
             ],
         ];
     }
