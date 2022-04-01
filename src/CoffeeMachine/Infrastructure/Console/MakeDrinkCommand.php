@@ -7,16 +7,16 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use GetWith\CoffeeMachine\Application\MakeDrink;
-use GetWith\CoffeeMachine\Application\MakeDrinkRequest;
-use GetWith\CoffeeMachine\Application\DataTransformer\DrinkDtoDataTransformer;
+use GetWith\CoffeeMachine\Infrastructure\DrinkOrder;
 
 class MakeDrinkCommand extends Command
 {
     protected static $defaultName = 'app:order-drink';
+    private $command;
 
-    public function __construct()
+    public function __construct(DrinkOrder $command)
     {
+        $this->command = $command;
         parent::__construct(MakeDrinkCommand::$defaultName);
     }
 
@@ -52,19 +52,7 @@ class MakeDrinkCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $drinkType = strtolower($input->getArgument('drink-type'));
-        $money = floatval($input->getArgument('money'));
-        $sugars = intval($input->getArgument('sugars'));
-        $extraHot = $input->getOption('extra-hot');
-
-        $orderRequestDTO = new MakeDrinkRequest($drinkType, $money, $sugars, $extraHot);
-        $makeDrink = new MakeDrink(new DrinkDtoDataTransformer());
-
-        try {  
-            $output->writeln($makeDrink->execute($orderRequestDTO));
-        } catch (\InvalidArgumentException $exception) {
-            $output->writeln($exception->getmessage());
-        }
+        $output->writeln($this->command->execute($input));
 
         return 0;
     }
