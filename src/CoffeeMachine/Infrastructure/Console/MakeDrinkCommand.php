@@ -22,31 +22,26 @@ class MakeDrinkCommand extends Command
 
     protected function configure(): void
     {
-        $this->addArgument(
-            'drink-type',
-            InputArgument::REQUIRED,
-            'The type of the drink. (Tea, Coffee or Chocolate)'
-        );
+        $configure = $this->commandImplement->configure();
 
-        $this->addArgument(
-            'money',
-            InputArgument::REQUIRED,
-            'The amount of money given by the user'
-        );
+        foreach ($configure['argument'] as $argument) {
+            $this->addArgument(
+                $argument['name'],
+                constant('Symfony\Component\Console\Input\InputArgument::'.strtoupper($argument['mode'])),
+                $argument['description'],
+                $argument['default-value']
+            );
+        }
 
-        $this->addArgument(
-            'sugars',
-            InputArgument::OPTIONAL,
-            'The number of sugars you want. (0, 1, 2)',
-            0
-        );
-
-        $this->addOption(
-            'extra-hot',
-            'e',
-            InputOption::VALUE_NONE,
-            $description = 'If the user wants to make the drink extra hot'
-        );
+        foreach ($configure['option'] as $option) {
+            $this->addOption(
+                $option['name'],
+                $option['shortcut'],
+                constant('Symfony\Component\Console\Input\InputOption::VALUE_'.strtoupper($argument['mode'])),
+                $option['description'],
+                $option['default-value']
+            );
+        }
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
