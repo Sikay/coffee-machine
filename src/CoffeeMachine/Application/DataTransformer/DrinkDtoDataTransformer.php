@@ -20,7 +20,7 @@ class DrinkDtoDataTransformer implements DrinkDataTransformer
         return $this->outputOrder();
     }
 
-    public function outputOrder(): string
+    private function outputOrder(): string
     {
         $dringTypeMessage = 'You have ordered a ' . $this->drink->name();
 
