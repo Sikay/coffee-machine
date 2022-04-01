@@ -25,7 +25,7 @@ class Chocolate implements Drinkeable
     private function isValidPrice(float $money): void
     {
         if ($money < self::PRICE) {
-            throw new ChocolateInvalidArgument('The chocolate costs 0.6.');
+            throw new DrinkInvalidArgument('The chocolate costs 0.6.');
         }
     }
 }

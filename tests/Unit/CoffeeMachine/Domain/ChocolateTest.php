@@ -4,7 +4,7 @@ namespace GetWith\Tests\Unit\CoffeeMachine\Domain;
 
 use PHPUnit\Framework\TestCase;
 use GetWith\CoffeeMachine\Domain\Chocolate;
-use GetWith\CoffeeMachine\Domain\ChocolateInvalidArgument;
+use GetWith\CoffeeMachine\Domain\DrinkInvalidArgument;
 use Iterator;
 
 class ChocolateTest extends TestCase
@@ -41,7 +41,7 @@ class ChocolateTest extends TestCase
      */
     public function should_fail_to_create_chocolate_with_money_less_than_minimun_price_required(float $money): void
     {
-        $this->expectException(ChocolateInvalidArgument::class);
+        $this->expectException(DrinkInvalidArgument::class);
         new Chocolate($money);
     }
 
