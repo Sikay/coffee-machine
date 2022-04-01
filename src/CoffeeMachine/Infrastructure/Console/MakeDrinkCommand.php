@@ -12,6 +12,8 @@ use GetWith\CoffeeMachine\Infrastructure\CommandInterface;
 class MakeDrinkCommand extends Command
 {
     private $commandImplement;
+    private const INPUT_ARGUMENT_SYMFONY_CLASS = 'Symfony\Component\Console\Input\InputArgument::';
+    private const INPUT_OPTION_SYMFONY_CLASS = 'Symfony\Component\Console\Input\InputOption::VALUE_';
 
     public function __construct(CommandInterface $commandImplement)
     {
@@ -24,28 +26,8 @@ class MakeDrinkCommand extends Command
     {
         $configure = $this->commandImplement->configure();
 
-        if (array_key_exists('argument', $configure)) {
-            foreach ($configure['argument'] as $argument) {
-                $this->addArgument(
-                    $argument['name'],
-                    constant('Symfony\Component\Console\Input\InputArgument::'.strtoupper($argument['mode'])),
-                    $argument['description'],
-                    $argument['default-value']
-                );
-            }
-        }
-
-        if (array_key_exists('option', $configure)) {
-            foreach ($configure['option'] as $option) {
-                $this->addOption(
-                    $option['name'],
-                    $option['shortcut'],
-                    constant('Symfony\Component\Console\Input\InputOption::VALUE_'.strtoupper($argument['mode'])),
-                    $option['description'],
-                    $option['default-value']
-                );
-            }
-        }
+        $this->addCommandArgument($configure);
+        $this->addCommandOption($configure);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -53,6 +35,35 @@ class MakeDrinkCommand extends Command
         $output->writeln($this->commandImplement->execute($input));
 
         return 0;
+    }
+
+    private function addCommandArgument(array $configure): void
+    {
+        if (array_key_exists('argument', $configure)) {
+            foreach ($configure['argument'] as $argument) {
+                $this->addArgument(
+                    $argument['name'],
+                    constant(self::INPUT_ARGUMENT_SYMFONY_CLASS.strtoupper($argument['mode'])),
+                    $argument['description'],
+                    $argument['default-value']
+                );
+            }
+        }
+    }
+
+    private function addCommandOption(array $configure): void
+    {
+        if (array_key_exists('option', $configure)) {
+            foreach ($configure['option'] as $option) {
+                $this->addOption(
+                    $option['name'],
+                    $option['shortcut'],
+                    constant(self::INPUT_OPTION_SYMFONY_CLASS.strtoupper($option['mode'])),
+                    $option['description'],
+                    $option['default-value']
+                );
+            }
+        }
     }
 
 }
