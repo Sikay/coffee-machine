@@ -24,7 +24,7 @@ class MakeDrinkCommandTest extends IntegrationTestCase
      * @param string $extraHot
      * @param string $expectedOutput
      */
-    public function testCoffeeMachineReturnsTheExpectedOutput(
+    public function test_coffee_machine_returns_the_expected_output(
         string $drinkType,
         string $money,
         int $sugars,
