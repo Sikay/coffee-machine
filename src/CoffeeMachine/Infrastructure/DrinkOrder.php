@@ -9,6 +9,13 @@ use GetWith\CoffeeMachine\Application\DataTransformer\DrinkDtoDataTransformer;
 
 class DrinkOrder
 {
+    private const COMMAND = 'app:order-drink';
+
+    public function command(): string
+    {
+        return self::COMMAND;
+    }
+    
     public function execute(InputInterface $input): string
     {
         $drinkType = strtolower($input->getArgument('drink-type'));

@@ -11,13 +11,12 @@ use GetWith\CoffeeMachine\Infrastructure\DrinkOrder;
 
 class MakeDrinkCommand extends Command
 {
-    protected static $defaultName = 'app:order-drink';
-    private $command;
+    private $commandImplement;
 
-    public function __construct(DrinkOrder $command)
+    public function __construct(DrinkOrder $commandImplement)
     {
-        $this->command = $command;
-        parent::__construct(MakeDrinkCommand::$defaultName);
+        $this->commandImplement = $commandImplement;
+        parent::__construct($commandImplement->command());
     }
 
 
@@ -52,7 +51,7 @@ class MakeDrinkCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $output->writeln($this->command->execute($input));
+        $output->writeln($this->commandImplement->execute($input));
 
         return 0;
     }
