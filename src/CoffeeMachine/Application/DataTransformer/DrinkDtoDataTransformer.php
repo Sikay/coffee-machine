@@ -17,6 +17,33 @@ class DrinkDtoDataTransformer implements DrinkDataTransformer
 
     public function read()
     {
-        return $this->drink->order();
+        return $this->outputOrder();
+    }
+
+    public function outputOrder(): string
+    {
+        $dringTypeMessage = 'You have ordered a ' . $this->drink->name();
+
+        return $dringTypeMessage . $this->extraHotMessage() . $this->amountSugarMessage();
+    }
+
+    private function extraHotMessage(): string
+    {
+        $extraHotMessage = '';
+        if ($this->drink->extraHot()) {
+            $extraHotMessage = ' extra hot';
+        }
+
+        return $extraHotMessage;
+    }
+
+    private function amountSugarMessage(): string
+    {
+        $amountSugarMessage = '';
+        if ($this->drink->sugar() > $this->drink->minimunSugar()) {
+            $amountSugarMessage = ' with ' . $this->drink->sugar() . ' sugars (stick included)';
+        }
+
+        return $amountSugarMessage;
     }
 }
